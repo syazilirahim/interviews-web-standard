@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <h1>Simple Test</h1>
+
+    <!-- Input with v-model -->
+    <form @submit.prevent="addTask">
+      <input v-model="newTaskTitle" placeholder="Type something..." />
+      <button type="submit">Add</button>
+    </form>
+
+    <p>Current Value: {{ newTaskTitle }}</p>
+
+    <ul>
+      <li v-for="(task, index) in tasks" :key="index">
+        {{ task }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const newTaskTitle = ref('');
+const tasks = ref<string[]>([]);
+
+function addTask() {
+  if (!newTaskTitle.value.trim()) return;
+  tasks.value.push(newTaskTitle.value);
+  newTaskTitle.value = '';
+}
+</script>
